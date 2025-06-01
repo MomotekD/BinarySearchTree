@@ -160,4 +160,23 @@ export class BST{
             }
         }
     }
+    levelOrder(callback){
+        if(typeof callback !== 'function'){
+            throw new Error('A callback function is required');
+        }
+        const queue = [];
+        if (this.root !== null) {
+            queue.push(this.root);
+        }
+
+        const traverse = () => {
+            if (queue.length === 0) return;
+            const node = queue.shift();
+            callback(node);
+            if (node.left !== null) queue.push(node.left);
+            if (node.right !== null) queue.push(node.right);
+            traverse();
+        }
+        traverse();
+    }
 }
